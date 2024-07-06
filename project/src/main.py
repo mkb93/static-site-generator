@@ -2,19 +2,16 @@ import os
 import shutil
 
 from copystatic import copy_files_recursive
-
-
-dir_path_static = "./static"
-dir_path_public = "./public"
-
-
+from generator import  generate_pages_recursive
 def main():
-    print("Deleting public directory...")
-    if os.path.exists(dir_path_public):
-        shutil.rmtree(dir_path_public)
+    from_path = 'content'
+    template_path = 'template.html'
+    dest_path = 'public'
 
-    print("Copying static files to public directory...")
-    copy_files_recursive(dir_path_static, dir_path_public)
+    os.makedirs(dest_path,exist_ok = True)
+    generate_pages_recursive(from_path, template_path, dest_path)
 
+    print("Page generation completed. You can now start your web server.")
 
-main()
+if __name__ == "__main__":
+    main()
